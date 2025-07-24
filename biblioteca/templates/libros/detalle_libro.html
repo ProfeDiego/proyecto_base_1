@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalle del Libro: {{ libro.titulo }}{% endblock %}
+
+{% block contenido %}
+<div class="grande">
+    <h2>Detalle del Libro: {{ libro.titulo }}</h2>
+    <p><strong>ID:</strong> {{ libro.id }}</p>
+    <p><strong>Título:</strong> {{ libro.titulo }}</p>
+    <p><strong>Autores:</strong>
+        {% for autor in libro.autores.all %}
+            <a href="{% url 'apps.libro:detalle_autor' autor.pk %}">
+                {{ autor.nombre }}</a>
+
+            {% if not forloop.last %}, {% endif %}
+
+            {% empty %} <p>No hay información sobre el autor o autores para este libro.</p>
+            
+        {% endfor %}
+    </p>
+    <p><strong>Fecha de Publicación:</strong> {{ libro.fecha_publicacion }}</p>
+    <p><strong>ISBN:</strong> {{ libro.isbn }}</p>
+
+    <hr> {# Separador para las reseñas #}
+
+    <h3>Reseñas</h3>
+    <div class="main container py-5">
+        {% if resenas %}
+            {% for resena in resenas %}
+                <div class="card mb-2">
+                    <div class="card-body p-3 bg-dark text-white">
+                        <p class="card-text">Publicado el: {{ resena.fecha }}, por el usuario: <strong>{{ user.username }}</strong></p>
+                        <p class="card-text">{{ resena.resena }}</p>
+                        {# Puedes añadir más info aquí, como la fecha de la reseña si la agregas al modelo #}
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Este libro aún no tiene reseñas.</p>
+        {% endif %}
+
+        <hr>
+
+        <h3>Deja tu Reseña</h3>
+        <form class="row-cols-sm-1 row-cols-md-2 py-2 my-2" method="post">
+
+            {% csrf_token %} {# ¡Siempre necesario para formularios en Django! #}
+
+            {{ form.as_p }} {# Renderiza el formulario como párrafos #}
+            
+            <button type="submit" class="btn btn-primary">Enviar Reseña</button>
+        </form>
+
+        <a href="{% url 'apps.libro:lista_libros' %}" class="btn btn-secondary mt-3">Volver a la lista de libros</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+<title>{% block title %} Lista de libros {% endblock title %}</title>
+
+{% block contenido %}
+    <h2>Lista de Libros</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Autores</th>
+                <th>Fecha Publicación</th>
+                <th>ISBN</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for libro in libros %}
+            <tr>
+                <td>{{ libro.id }}</td>
+                <td>{{ libro.titulo }}</td>
+                <td>
+                    {% for autor in libro.autores.all %}
+                        {{ autor.nombre }}{% if not forloop.last %}, {% endif %}
+                        {% empty %} <p>No hay autor o autores registrados para este libro.</p>
+                    {% endfor %}
+                </td>
+                <td>{{ libro.fecha_publicacion }}</td>
+                <td>{{ libro.isbn }}</td>
+                <td>
+                    <a href="{% url 'apps.libro:detalle_libro' libro.pk %}" class="btn btn-sm btn-lista">Ver Detalle</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No hay libros registrados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

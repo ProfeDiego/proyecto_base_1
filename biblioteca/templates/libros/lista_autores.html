@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Autores{% endblock %}
+
+{% block contenido %}
+    <h2>Lista de Autores</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Nacionalidad</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for autor in autores %}
+            <tr>
+                <td>{{ autor.id }}</td>
+                <td>{{ autor.nombre }}</td>
+                <td>{{ autor.nacionalidad }}</td>
+                <td>
+                    <a href="{% url 'apps.libro:detalle_autor' autor.pk %}" class="btn btn-sm btn-lista">Ver Detalle</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No hay autores registrados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

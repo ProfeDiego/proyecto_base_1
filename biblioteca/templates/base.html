@@ -1,0 +1,93 @@
+{% load static %}
+
+<!doctype html>
+<html lang="es-ar">
+    <head>
+        <title> {% block title %} {% endblock title %} </title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <!-- Bootstrap CSS v5.2.1 -->
+
+        <link rel="stylesheet" href="{% static 'assets/dist/css/bootstrap.min.css' %} ">
+        <!-- Hoja de estilos propia -->
+        <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+
+    </head>
+
+    <body>
+    <header class="p-3 bg-dark text-white">
+      <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+          <a href="{%  url 'index' %}">
+            <img width="75" height="75" src="{% static 'img/logo.png' %}" alt="logo informatorio">
+          </a>
+
+          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="{%  url 'index' %}" class="nav-link px-2 text-white">Inicio</a></li>
+            <li><a href="{%  url 'acerca' %}" class="nav-link px-2 text-white">Nosotros</a></li>
+            <li><a href="{%  url 'apps.libro:biblioteca' %}" " class="nav-link px-2 text-white">Biblioteca</a></li>
+            <li><a href="#" class="nav-link px-2 text-white">Contacto</a></li>
+          </ul>
+
+          <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+            <input type="search" class="form-control form-control-dark" placeholder="Buscar..." aria-label="Search">
+          </form>
+
+          <div class="text-end">
+            <button type="button" class="btn btn-outline-light me-2">Login</button>
+            <button type="button" class="btn btn-warning">Registrarse</button>
+          </div>
+          <li class="nav-link px-2 text-white"><h5>Hola, {{ user.username }}
+</h5></li>
+            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="{% static 'img/user.jpg' %}" alt="mdo" width="32" height="32" class="rounded-circle">
+          </a>
+        </div>
+      </div>
+    </header>
+
+        <main class="main">
+
+           {% block contenido %}
+
+           {% endblock %}
+
+        </main>
+        
+    <div class="p-3 bg-dark text-white">
+        <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top">
+            <div class="col mb-3"> <a href="/"
+                    class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none"
+                    aria-label="Bootstrap"> 
+                    <img width="75" height="75" src="{% static 'img/logo.png' %}" alt="logo informatorio">
+            </div>
+
+            <div class="col mb-3"></div>
+            <div class="col mb-3">
+                <h5>Section</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Inicio</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Nosotros</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Biblioteca</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Contacto</a></li>
+                </ul>
+            </div>
+
+        </footer>
+        <script
+            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"
+        ></script>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+            crossorigin="anonymous"
+        ></script>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalle de Autor: {{ autor.nombre }}{% endblock %}
+
+{% block contenido %}
+    <h2>Detalle del Autor: {{ autor.nombre }}</h2>
+    <p><strong>ID:</strong> {{ autor.id }}</p>
+    <p><strong>Nombre:</strong> {{ autor.nombre }}</p>
+    <p><strong>Nacionalidad:</strong> {{ autor.nacionalidad }}</p>
+{% if autor.datos_aut %}
+    <p><strong>Número de identificación:</strong> {{ autor.datos_aut.identificacion }}</p>
+    <p><strong>Fecha de nacimiento:</strong> {{ autor.datos_aut.fecha_nac }}</p>
+{% else %}
+    <p>No hay datos adicionales de identificación y nacimiento para este autor.</p>
+    {% endif %}
+    <p><strong>Libros Publicados:</strong>
+        <ul>
+            {% for libro in autor.libro_set.all %} {# 'libro_set' es el nombre inverso automático del ManyToManyField #}
+                <li><a href="{% url 'apps.libro:detalle_libro' libro.pk %}">{{ libro.titulo }}</a></li>
+            {% empty %}
+                <li>Ningún libro registrado para este autor.</li>
+            {% endfor %}
+        </ul>
+    </p>
+    <a href="{% url 'apps.libro:lista_autores' %}" class="btn btn-secondary mt-3">Volver a la lista de autores</a>
+{% endblock %}
